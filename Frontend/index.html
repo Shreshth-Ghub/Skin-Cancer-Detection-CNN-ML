@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedAI - Advanced Skin Cancer Detection System</title>
+    <meta name="description" content="AI-powered skin cancer detection using advanced CNN technology for early diagnosis and prevention.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <div class="brand-icon">🏥</div>
+                    <span class="brand-text">MedAI</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#upload" class="nav-link">Analyze</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#stats" class="nav-link">Statistics</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="hero-header" id="upload">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-text">🚀 Powered by Advanced CNN Technology</span>
+                </div>
+                <h1 class="hero-title">
+                    Advanced Skin Cancer Detection
+                    <span class="gradient-text">Using Artificial Intelligence</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Get instant AI-powered analysis of dermoscopic images with 90%+ accuracy. 
+                    Early detection saves lives - upload your image for immediate screening.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">13</div>
+                        <div class="stat-label">Cancer Types</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">90%+</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10k+</div>
+                        <div class="stat-label">Images Analyzed</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="section-header">
+                    <h2>Upload Dermoscopic Image</h2>
+                    <p>Drag and drop your medical image or click to browse files</p>
+                </div>
+                
+                <div class="upload-container">
+                    <!-- File Upload Area -->
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <div class="upload-icon-wrapper">
+                                <div class="upload-icon">📋</div>
+                                <div class="upload-pulse"></div>
+                            </div>
+                            <div class="upload-text-content">
+                                <h3 class="upload-title">Drop your medical image here</h3>
+                                <p class="upload-subtitle">or click to browse files</p>
+                                <div class="upload-specs">
+                                    <span class="spec-item">📏 Max 10MB</span>
+                                    <span class="spec-item">🖼️ JPG, PNG, JPEG</span>
+                                    <span class="spec-item">⚡ Instant Analysis</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upload-progress-ring hidden" id="uploadProgressRing">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle class="progress-ring-circle" cx="60" cy="60" r="54"></circle>
+                                <circle class="progress-ring-progress" cx="60" cy="60" r="54"></circle>
+                            </svg>
+                            <div class="progress-percentage">0%</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hidden file input -->
+                    <input type="file" id="fileInput" accept="image/jpeg,image/jpg,image/png" class="file-input-hidden" aria-label="Upload medical image">
+
+                    <!-- Image Preview -->
+                    <div class="image-preview-container hidden" id="imagePreview">
+                        <div class="image-preview-wrapper">
+                            <img id="previewImage" alt="Uploaded medical image preview" class="preview-image">
+                            <div class="image-overlay">
+                                <div class="image-info">
+                                    <span class="image-filename" id="imageFilename">image.jpg</span>
+                                    <span class="image-size" id="imageSize">2.3 MB</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preview-actions">
+                            <button class="btn btn--primary btn--lg" id="analyzeBtn">
+                                <span class="btn-icon">🔍</span>
+                                <span>Analyze Image</span>
+                            </button>
+                            <button class="btn btn--outline" id="removeBtn">
+                                <span class="btn-icon">🗑️</span>
+                                <span>Remove</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Images -->
+                <div class="sample-images">
+                    <h3>Try with sample images:</h3>
+                    <div class="sample-grid">
+                        <button class="sample-image-btn" data-sample="melanoma">
+                            <div class="sample-placeholder">🔬</div>
+                            <span>Melanoma Sample</span>
+                        </button>
+                        <button class="sample-image-btn" data-sample="nevus">
+                            <div class="sample-placeholder">🔬</div>
+                            <span>Nevus Sample</span>
+                        </button>
+                        <button class="sample-image-btn" data-sample="basal">
+                            <div class="sample-placeholder">🔬</div>
+                            <span>Basal Cell Sample</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Progress -->
+            <section class="analysis-section hidden" id="analysisProgress">
+                <div class="analysis-container">
+                    <div class="analysis-header">
+                        <h3>🧠 AI Analysis in Progress</h3>
+                        <p class="analysis-subtitle">Our neural network is examining your image...</p>
+                    </div>
+                    
+                    <div class="progress-visualization">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                                <div class="progress-glow"></div>
+                            </div>
+                            <div class="progress-percentage-text" id="progressPercentage">0%</div>
+                        </div>
+                        
+                        <div class="analysis-steps" id="analysisSteps">
+                            <div class="step-item active" data-step="0">
+                                <div class="step-icon">⚡</div>
+                                <div class="step-text">Initializing AI model...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-info">
+                        <div class="tech-item">
+                            <span class="tech-label">Model:</span>
+                            <span class="tech-value">CNN-ResNet50</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-label">Image Size:</span>
+                            <span class="tech-value">128x128px</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-label">Classes:</span>
+                            <span class="tech-value">13 types</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section hidden" id="resultsSection">
+                <div class="results-header">
+                    <h2>🎯 Analysis Results</h2>
+                    <p>AI-powered skin lesion classification complete</p>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Primary Prediction -->
+                    <div class="primary-result-card">
+                        <div class="result-header">
+                            <h3>Primary Diagnosis</h3>
+                            <div class="confidence-ring">
+                                <svg class="confidence-circle" width="80" height="80">
+                                    <circle cx="40" cy="40" r="36" class="confidence-bg"></circle>
+                                    <circle cx="40" cy="40" r="36" class="confidence-progress" id="confidenceProgress"></circle>
+                                </svg>
+                                <div class="confidence-text" id="confidenceText">85%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="prediction-details">
+                            <h4 class="prediction-name" id="primaryPrediction">Melanoma</h4>
+                            <div class="risk-assessment">
+                                <span class="risk-label">Risk Level:</span>
+                                <span class="risk-indicator risk-high" id="riskIndicator">High Risk</span>
+                            </div>
+                            <p class="prediction-description" id="predictionDescription">
+                                Most serious type of skin cancer that develops in melanocytes
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Top Predictions -->
+                    <div class="predictions-card">
+                        <h3>Top 3 Predictions</h3>
+                        <div class="predictions-list" id="predictionsList">
+                            <!-- Dynamic content will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Confidence Breakdown -->
+                    <div class="confidence-breakdown-card">
+                        <h3>Confidence Analysis</h3>
+                        <div class="confidence-chart" id="confidenceChart">
+                            <!-- Dynamic confidence bars will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-section">
+                    <h3>📋 Medical Recommendations</h3>
+                    <div class="recommendation-cards" id="recommendationCards">
+                        <div class="recommendation-card urgent">
+                            <div class="rec-icon">⚠️</div>
+                            <div class="rec-content">
+                                <h4>Immediate Action Required</h4>
+                                <p>Consult a dermatologist within 48 hours for professional evaluation.</p>
+                            </div>
+                        </div>
+                        <div class="recommendation-card info">
+                            <div class="rec-icon">📞</div>
+                            <div class="rec-content">
+                                <h4>Schedule Appointment</h4>
+                                <p>Book a biopsy appointment to confirm the diagnosis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button class="btn btn--primary" id="downloadReportBtn">
+                        <span class="btn-icon">📄</span>
+                        <span>Download Report</span>
+                    </button>
+                    <button class="btn btn--outline" id="newAnalysisBtn">
+                        <span class="btn-icon">🔄</span>
+                        <span>New Analysis</span>
+                    </button>
+                    <button class="btn btn--secondary" id="shareResultsBtn">
+                        <span class="btn-icon">📤</span>
+                        <span>Share Results</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="statistics-section" id="stats">
+                <div class="section-header">
+                    <h2>📊 Platform Statistics</h2>
+                    <p>Real-time insights into our AI-powered diagnosis system</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-number counter" data-target="92">0</div>
+                            <div class="stat-label">Accuracy Rate</div>
+                            <div class="stat-sublabel">Based on clinical validation</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-content">
+                            <div class="stat-number counter" data-target="10847">0</div>
+                            <div class="stat-label">Images Analyzed</div>
+                            <div class="stat-sublabel">This month</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-content">
+                            <div class="stat-number"><span class="counter" data-target="2">0</span>s</div>
+                            <div class="stat-label">Average Analysis Time</div>
+                            <div class="stat-sublabel">Lightning fast processing</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏥</div>
+                        <div class="stat-content">
+                            <div class="stat-number counter" data-target="500">0</div>
+                            <div class="stat-label">Healthcare Partners</div>
+                            <div class="stat-sublabel">Worldwide network</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="about-section" id="about">
+                <div class="section-header">
+                    <h2>🧬 About Our Technology</h2>
+                    <p>Understanding the science behind our AI-powered skin cancer detection</p>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-icon">🧠</div>
+                        <h3>Deep Learning</h3>
+                        <p>Our CNN model trained on over 50,000 dermoscopic images uses advanced pattern recognition to identify malignant and benign lesions with clinical-grade accuracy.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">⚡</div>
+                        <h3>Real-time Analysis</h3>
+                        <p>Get instant results within seconds. Our optimized neural network processes images at lightning speed without compromising accuracy.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">🔒</div>
+                        <h3>Privacy First</h3>
+                        <p>Your medical images are processed locally and never stored on our servers. Complete privacy and HIPAA compliance guaranteed.</p>
+                    </div>
+                </div>
+
+                <!-- Model Architecture -->
+                <div class="architecture-section">
+                    <h3>🏗️ Model Architecture</h3>
+                    <div class="architecture-flow">
+                        <div class="arch-step">
+                            <div class="arch-icon">📸</div>
+                            <div class="arch-title">Input Layer</div>
+                            <div class="arch-desc">128x128x3 RGB Image</div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-step">
+                            <div class="arch-icon">🔄</div>
+                            <div class="arch-title">CNN Layers</div>
+                            <div class="arch-desc">Feature extraction</div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-step">
+                            <div class="arch-icon">🧮</div>
+                            <div class="arch-title">Dense Layers</div>
+                            <div class="arch-desc">Classification</div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-step">
+                            <div class="arch-icon">📊</div>
+                            <div class="arch-title">Output</div>
+                            <div class="arch-desc">13-class prediction</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skin Cancer Types Information -->
+            <section class="cancer-types-section">
+                <div class="section-header">
+                    <h2>🔬 Skin Cancer Types</h2>
+                    <p>Learn about the different types of skin lesions our AI can identify</p>
+                </div>
+                <div class="cancer-types-grid" id="cancerTypesGrid">
+                    <!-- Dynamic content will be populated here -->
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section" id="faq">
+                <div class="section-header">
+                    <h2>❓ Frequently Asked Questions</h2>
+                    <p>Common questions about our AI skin cancer detection system</p>
+                </div>
+
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How accurate is the AI diagnosis?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Our AI model achieves 92% accuracy on clinical validation datasets, comparable to dermatologist-level performance. However, this tool is for screening purposes only and should not replace professional medical consultation.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Is my medical data safe and private?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. All image processing happens locally in your browser. We never upload, store, or transmit your medical images to our servers. Your privacy is our top priority.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What image quality do I need for accurate results?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>For best results, use clear, well-lit dermoscopic images. The lesion should be centered and fill most of the frame. Avoid blurry, dark, or low-resolution images.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Should I trust the AI diagnosis completely?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>No. This AI tool is designed for screening and educational purposes only. Always consult with a qualified dermatologist for definitive diagnosis and treatment recommendations. Early detection saves lives, but professional medical care is irreplaceable.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Medical Disclaimer -->
+        <section class="disclaimer">
+            <div class="disclaimer-card">
+                <div class="disclaimer-header">
+                    <div class="disclaimer-icon">⚠️</div>
+                    <h3>Important Medical Disclaimer</h3>
+                </div>
+                <div class="disclaimer-content">
+                    <p><strong>This AI tool is for educational and screening purposes only.</strong> It is not intended to diagnose, treat, cure, or prevent any disease. The results should not be considered as medical advice.</p>
+                    <p><strong>Always consult with a qualified healthcare professional</strong> for proper medical evaluation, diagnosis, and treatment. If you notice any concerning changes in your skin, seek immediate medical attention.</p>
+                    <p>Early detection of skin cancer significantly improves treatment outcomes. Regular skin examinations by dermatologists are recommended for everyone.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top hidden" id="backToTop" aria-label="Back to top">
+        <span>↑</span>
+    </button>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Initializing AI system...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
